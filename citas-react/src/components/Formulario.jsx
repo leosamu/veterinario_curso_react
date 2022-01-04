@@ -1,6 +1,6 @@
 const Formulario = () => {
     return (
-        <div>
+        <div >
             <h2>Formulario</h2>
         </div>
     )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const ListadoPacientes = () => {
+const ListadoPacientes = () => {
     return (
         <h2>
             Listado Pacientes
@@ -8,3 +8,4 @@ export const ListadoPacientes = () => {
     )
 }
 
+export default ListadoPacientes
