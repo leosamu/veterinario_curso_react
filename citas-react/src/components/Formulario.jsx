@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Error from "./Error";
 
-const Formulario = ({ pacientes, setPacientes, paciente }) => {
+const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
     //MEMO - los hooks deben colorcarse en la parte superior del componente que los van a usar
     //no se pueden declarar dentro de condicionales
     //el orden en el que se declaran los states es importante para lueco
@@ -14,6 +14,18 @@ const Formulario = ({ pacientes, setPacientes, paciente }) => {
     const [error, setError] = useState(false);
 
     useEffect(() => {
+        if (Object.keys(paciente).length > 0) {
+            //si hay algo
+            setNombre(paciente.nombre);
+            setPropietario(paciente.propietario);
+            setEmail(paciente.email);
+            setFecha(paciente.fecha);
+            setSintomas(paciente.sintomas);
+        }
+        else {
+            //no hay nada
+
+        }
         return () => {
         }
     }, [paciente])
@@ -41,11 +53,26 @@ const Formulario = ({ pacientes, setPacientes, paciente }) => {
                 email,
                 fecha,
                 sintomas,
-                id: generarId()
             }
 
+            if (paciente.id) {
+                //editando
+                objetoPaciente.id = paciente.id;
+
+                const pacientes_actualizados = pacientes.map(
+                    pacienteState => pacienteState.id === paciente.id ?
+                        objetoPaciente :
+                        pacienteState
+                );
+                setPacientes(pacientes_actualizados);
+            }
+            else {
+                //nuevo registro
+                objetoPaciente.id = generarId();
+                setPacientes([...pacientes, objetoPaciente]);
+            }
             //agregamos el objetopaciente al array de pacientes :)
-            setPacientes([...pacientes, objetoPaciente]);
+
 
             //reiniciar el form
             setNombre('');
@@ -53,6 +80,7 @@ const Formulario = ({ pacientes, setPacientes, paciente }) => {
             setEmail('');
             setFecha('');
             setSintomas('');
+            setPaciente({});
         }
         console.log('Enviando formulario...');
     }
@@ -111,7 +139,8 @@ const Formulario = ({ pacientes, setPacientes, paciente }) => {
                         value={sintomas}
                         onChange={(e) => setSintomas(e.target.value)} />
                 </div>
-                <input type="submit" className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all" value="Agregar Paciente" />
+                <input type="submit" className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
+                    value={paciente.id ? 'Editar Paciente' : 'Agregar Paciente'} />
             </form>
         </div>
     )
