@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Error from "./Error";
 
-const Formulario = ({ pacientes, setPacientes }) => {
+const Formulario = ({ pacientes, setPacientes, paciente }) => {
     //MEMO - los hooks deben colorcarse en la parte superior del componente que los van a usar
     //no se pueden declarar dentro de condicionales
     //el orden en el que se declaran los states es importante para lueco
@@ -12,6 +12,13 @@ const Formulario = ({ pacientes, setPacientes }) => {
     const [fecha, setFecha] = useState('');
     const [sintomas, setSintomas] = useState('');
     const [error, setError] = useState(false);
+
+    useEffect(() => {
+        return () => {
+        }
+    }, [paciente])
+
+
 
     const generarId = () => {
         const random = Math.random(36).toString().substring(2);
