@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const Formulario = () => {
+const Formulario = ({ pacientes, setPacientes }) => {
     //MEMO - los hooks deben colorcarse en la parte superior del componente que los van a usar
     //no se pueden declarar dentro de condicionales
     //el orden en el que se declaran los states es importante para lueco
@@ -20,6 +20,24 @@ const Formulario = () => {
             setError(true);
         } else {
             setError(false);
+            //Objeto de paciente
+            const objetoPaciente = {
+                nombre,
+                propietario,
+                email,
+                fecha,
+                sintomas
+            }
+
+            //agregamos el objetopaciente al array de pacientes :)
+            setPacientes([...pacientes, objetoPaciente]);
+
+            //reiniciar el form
+            setNombre('');
+            setPropietario('');
+            setEmail('');
+            setFecha('');
+            setSintomas('');
         }
         console.log('Enviando formulario...');
     }
