@@ -10,9 +10,17 @@ const Formulario = () => {
     const [email, setEmail] = useState('');
     const [fecha, setFecha] = useState('');
     const [sintomas, setSintomas] = useState('');
+    const [error, setError] = useState(false);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+
+        //validacion del formulario 
+        if ([nombre, propietario, email, fecha, sintomas].includes('')) {
+            setError(true);
+        } else {
+            setError(false);
+        }
         console.log('Enviando formulario...');
     }
 
@@ -25,6 +33,11 @@ const Formulario = () => {
             <form
                 onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
+                {error && (
+                    <div className="bg-red-800 text-white text-center p-3 uppercase font-bold mb-3 rounded-md">
+                        <p>Todos los campos son obligatorios</p>
+                    </div>)
+                }
                 <div className="mb-5">
                     <label htmlFor="mascota" className="block text-gray-700 uppercase font-bold">
                         Nombre Mascota
