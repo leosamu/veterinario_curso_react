@@ -13,6 +13,12 @@ const Formulario = ({ pacientes, setPacientes }) => {
     const [sintomas, setSintomas] = useState('');
     const [error, setError] = useState(false);
 
+    const generarId = () => {
+        const random = Math.random(36).toString().substring(2);
+        const fecha = Date.now().toString(36);
+        return random + fecha;
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -27,7 +33,8 @@ const Formulario = ({ pacientes, setPacientes }) => {
                 propietario,
                 email,
                 fecha,
-                sintomas
+                sintomas,
+                id: generarId()
             }
 
             //agregamos el objetopaciente al array de pacientes :)
